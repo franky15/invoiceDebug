@@ -26,31 +26,29 @@ const bills = [{
   "pct": 20,
 }];
 
-// Suite de tests principale pour le logout
+
 describe('Given I am connected', () => {
 
-  // Test pour le scénario où l'utilisateur clique sur le bouton de déconnexion
   describe('When I click on disconnect button', () => {
     test(('Then, I should be sent to login page'), () => {
       const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname }); // Simule la navigation en modifiant le corps du document avec la route spécifiée
+        document.body.innerHTML = ROUTES({ pathname }); 
       };
 
-      Object.defineProperty(window, 'localStorage', { value: localStorageMock }); // Définit localStorage avec un mock pour simuler le stockage local
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock });
       window.localStorage.setItem('user', JSON.stringify({
-        type: 'Admin' // Simule l'utilisateur connecté comme un administrateur
+        type: 'Admin' 
       }));
 
-      document.body.innerHTML = DashboardUI({ bills }); // Affiche l'interface utilisateur du tableau de bord avec les factures simulées
-      const logout = new Logout({ document, onNavigate, localStorage }); // Instancie le composant Logout avec les dépendances simulées
-      const handleClick = jest.fn(logout.handleClick); // Mock de la méthode handleClick
+      document.body.innerHTML = DashboardUI({ bills }); 
+      const logout = new Logout({ document, onNavigate, localStorage });
+      const handleClick = jest.fn(logout.handleClick); 
 
-      const disco = screen.getByTestId('layout-disconnect'); // Récupère le bouton de déconnexion dans l'interface
-      disco.addEventListener('click', handleClick); // Ajoute un gestionnaire d'événements pour le clic sur le bouton de déconnexion
-      userEvent.click(disco); // Simule un clic sur le bouton de déconnexion
+      const disco = screen.getByTestId('layout-disconnect');
+      disco.addEventListener('click', handleClick); 
+      userEvent.click(disco);
 
-      // Assertions pour vérifier le comportement attendu après le clic sur le bouton de déconnexion
-      expect(handleClick).toHaveBeenCalled(); // Vérifie que handleClick a été appelé
+      expect(handleClick).toHaveBeenCalled(); 
       expect(screen.getByText('Administration')).toBeTruthy(); // Vérifie que le texte 'Administration' est présent sur la page, indiquant la redirection réussie
     });
   });

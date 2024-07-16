@@ -7,10 +7,10 @@ import Login from "../containers/Login.js";
 import { ROUTES } from "../constants/routes";
 import { fireEvent, screen } from "@testing-library/dom";
 
-// Suite de tests principale pour la page de connexion
+
 describe("Given that I am a user on login page", () => {
 
-  // Première série de tests pour le bouton "Login In" de l'employé
+ 
   describe("When I do not fill fields and I click on employee button Login In", () => {
     test("Then It should render Login page", () => {
       document.body.innerHTML = LoginUI();
@@ -22,7 +22,6 @@ describe("Given that I am a user on login page", () => {
       const inputPasswordUser = screen.getByTestId("employee-password-input");
       expect(inputPasswordUser.value).toBe("");
 
-      // Capture du formulaire et simulation de soumission
       const form = screen.getByTestId("form-employee");
       const handleSubmit = jest.fn((e) => e.preventDefault());
 
@@ -34,7 +33,6 @@ describe("Given that I am a user on login page", () => {
     });
   });
 
-  // Deuxième série de tests pour le bouton "Login In" de l'employé avec des champs mal renseignés
   describe("When I do fill fields in incorrect format and I click on employee button Login In", () => {
     test("Then It should render Login page", () => {
       document.body.innerHTML = LoginUI();
@@ -60,12 +58,10 @@ describe("Given that I am a user on login page", () => {
     });
   });
 
-  // Troisième série de tests pour le bouton "Login In" de l'employé avec des champs correctement renseignés
   describe("When I do fill fields in correct format and I click on employee button Login In", () => {
     test("Then I should be identified as an Employee in app", () => {
       document.body.innerHTML = LoginUI();
 
-      // Données de test pour les champs email et mot de passe
       const inputData = {
         email: "johndoe@email.com",
         password: "azerty",
@@ -129,10 +125,8 @@ describe("Given that I am a user on login page", () => {
   });
 });
 
-// Suite de tests pour la connexion en tant qu'administrateur
 describe("Given that I am a user on login page", () => {
 
-  // Première série de tests pour le bouton "Login In" de l'administrateur
   describe("When I do not fill fields and I click on admin button Login In", () => {
     test("Then It should render Login page", () => {
       document.body.innerHTML = LoginUI();
@@ -156,7 +150,6 @@ describe("Given that I am a user on login page", () => {
     });
   });
 
-  // Deuxième série de tests pour le bouton "Login In" de l'administrateur avec des champs mal renseignés
   describe("When I do fill fields in incorrect format and I click on admin button Login In", () => {
     test("Then it should render Login page", () => {
       document.body.innerHTML = LoginUI();
@@ -182,7 +175,6 @@ describe("Given that I am a user on login page", () => {
     });
   });
 
-  // Troisième série de tests pour le bouton "Login In" de l'administrateur avec des champs correctement renseignés
   describe("When I do fill fields in correct format and I click on admin button Login In", () => {
     test("Then I should be identified as an HR admin in app", () => {
       document.body.innerHTML = LoginUI();

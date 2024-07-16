@@ -79,7 +79,6 @@ describe("Given I am connected as an employee", () => {
         localStorage: null,
       });
 
-      // Selection du bouton
       const buttonNewBill = screen.getByTestId("btn-new-bill");
 
       // Simulation du clic sur le bouton "New Bill"
@@ -89,10 +88,8 @@ describe("Given I am connected as an employee", () => {
       expect(onNavigateMock).toHaveBeenCalledWith("#employee/bill/new");
     });
 
-    // Test pour vérifier l'ouverture de la modal en cliquant sur l'icône "eye"
     test("Then a modal should open when clicking on the eye icon", async () => {
       
-      // Définition du chemin de navigation
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
@@ -102,7 +99,6 @@ describe("Given I am connected as an employee", () => {
         value: localStorageMock,
       });
 
-      // Enregistrement de l'utilisateur comme employé
       window.localStorage.setItem(
         "user",
         JSON.stringify({
@@ -121,15 +117,12 @@ describe("Given I am connected as an employee", () => {
       // Ajout du HTML des factures à la page
       document.body.innerHTML = BillsUI({ data: bills });
 
-      // Récupération de tous les icônes "eye"
       const iconEyes = screen.getAllByTestId("icon-eye");
 
-      // Simulation du clic sur l'icône "eye"
       iconEyes.forEach(iconEye => {
         iconEye.addEventListener("click", (e) => billsPage.handleClickIconEye(iconEye));
       });
 
-      // Simuler un clic sur la première icône "eye"
       fireEvent.click(iconEyes[0]);
 
       // Attente de l'affichage de la modal
