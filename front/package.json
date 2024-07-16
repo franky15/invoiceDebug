@@ -1,0 +1,128 @@
+{
+  
+  "scripts": {
+  
+    
+  "test": "jest --coverage --noStackTrace --silent"
+  
+  },
+  
+  "jest": {
+  
+    
+  "verbose": false,
+  
+    
+  "setupFiles": [
+  
+    
+    
+  "./setup-jest.js"
+  
+    
+  ],
+  
+    
+  "collectCoverageFrom": [
+  
+    
+    
+  "**/*.{js,jsx}",
+  
+    
+    
+  "!**/app/**",
+  
+    
+    
+  "!**/assets/**",
+  
+    
+    
+  "!**/external/**",
+  
+    
+    
+  "!**/fixtures/**",
+  
+    
+    
+  "!**/lcov-report/**"
+  
+    
+  ],
+  
+    
+  "transform": {
+  
+    
+    
+  "^.+\\.js$": "babel-jest"
+  
+    
+  }
+  
+  },
+  
+  "dependencies": {
+  
+    
+  "bootstrap.native": "^5.0.12",
+  
+    
+  "date-fns": "^3.3.1",
+  
+    
+  "express": "^4.17.1",
+  
+    
+  "global": "^4.4.0",
+  
+    
+  "jsdom": "^24.1.0",
+  
+    
+  "jsdom-global": "^3.0.2",
+  
+    
+  "path": "^0.12.7"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "@babel/plugin-proposal-class-properties": "^7.18.6",
+  
+    
+  "@babel/preset-env": "^7.24.1",
+  
+    
+  "@testing-library/dom": "^7.31.2",
+  
+    
+  "@testing-library/jest-dom": "^5.17.0",
+  
+    
+  "@testing-library/user-event": "^12.0.11",
+  
+    
+  "babel-jest": "^26.1.0",
+  
+    
+  "jest": "^26.1.0",
+  
+    
+  "jest-environment-jsdom": "^27.4.6",
+  
+    
+  "jest-html-reporter": "^3.1.3",
+  
+    
+  "jquery": "^3.7.1",
+  
+    
+  "text-encoding": "^0.7.0"
+  
+  }
+}
