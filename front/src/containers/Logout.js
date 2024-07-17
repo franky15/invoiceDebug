@@ -8,7 +8,7 @@ export default class Logout {
     //$('#layout-disconnect').click(this.handleClick)
 
     /////////////////////////////
-    // Utiliser JavaScript natif pour sélectionner l'élément et ajouter un événement
+    // conversion du jquery en js
     document.addEventListener("DOMContentLoaded", () => {
       const disconnectButton = document.getElementById('layout-disconnect');
       if (disconnectButton) {
