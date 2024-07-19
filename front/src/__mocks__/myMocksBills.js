@@ -1,4 +1,4 @@
-// __mocks__/mocks.js
+
 
 export const mockLocalStorage = (localStorageMock) => {
   Object.defineProperty(window, 'localStorage', { value: localStorageMock });
