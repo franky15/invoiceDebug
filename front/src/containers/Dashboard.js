@@ -104,44 +104,54 @@ export default class {
     }
   }
 
+ 
   handleEditTicket(e, bill, bills) {
-    if (this.counter === undefined || this.id !== bill.id) this.counter = 0
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
+    if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
+    if (this.id === undefined || this.id !== bill.id) this.id = bill.id;
+    
     if (this.counter % 2 === 0) {
       bills.forEach(b => {
-        const openBill = document.getElementById(`open-bill${b.id}`);
-        if (openBill) {
-          openBill.style.background = '#0D5AE5';
+        const openBillElement = document.getElementById(`open-bill${b.id}`);
+        if (openBillElement) {
+          openBillElement.style.background = '#0D5AE5';
         }
-      })
+      });
+  
       const billElement = document.getElementById(`open-bill${bill.id}`);
       if (billElement) {
         billElement.style.background = '#2A2B35';
       }
-      document.querySelector('.dashboard-right-container div').innerHTML = DashboardFormUI(bill)
-      document.querySelector('.vertical-navbar').style.height = '150vh'
-      this.counter++
+      document.querySelector('.dashboard-right-container div').innerHTML = DashboardFormUI(bill);
+      document.querySelector('.vertical-navbar').style.height = '150vh';
+      this.counter++;
     } else {
       const billElement = document.getElementById(`open-bill${bill.id}`);
       if (billElement) {
         billElement.style.background = '#0D5AE5';
       }
-      document.querySelector('.vertical-navbar').style.height = '120vh'
-      this.counter++
+      document.querySelector('.dashboard-right-container div').innerHTML = `
+        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
+      `;
+      document.querySelector('.vertical-navbar').style.height = '120vh';
+      this.counter++;
     }
+  
     const iconEye = document.getElementById('icon-eye-d');
     if (iconEye) {
       iconEye.addEventListener('click', this.handleClickIconEye);
     }
-    const acceptBill = document.getElementById('btn-accept-bill');
-    if (acceptBill) {
-      acceptBill.addEventListener('click', (e) => this.handleAcceptSubmit(e, bill));
+  
+    const acceptBillButton = document.getElementById('btn-accept-bill');
+    if (acceptBillButton) {
+      acceptBillButton.addEventListener('click', (e) => this.handleAcceptSubmit(e, bill));
     }
-    const refuseBill = document.getElementById('btn-refuse-bill');
-    if (refuseBill) {
-      refuseBill.addEventListener('click', (e) => this.handleRefuseSubmit(e, bill));
+  
+    const refuseBillButton = document.getElementById('btn-refuse-bill');
+    if (refuseBillButton) {
+      refuseBillButton.addEventListener('click', (e) => this.handleRefuseSubmit(e, bill));
     }
   }
+
 
   handleAcceptSubmit = (e, bill) => {
     const newBill = {
@@ -164,37 +174,30 @@ export default class {
   }
 
   handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
+    if (this.counter === undefined || this.index !== index) this.counter = 0;
+    if (this.index === undefined || this.index !== index) this.index = index;
     const arrowIcon = document.getElementById(`arrow-icon${this.index}`);
     const statusBillsContainer = document.getElementById(`status-bills-container${this.index}`);
     if (this.counter % 2 === 0) {
-      if (arrowIcon) {
-        arrowIcon.style.transform = 'rotate(0deg)';
-      }
-      if (statusBillsContainer) {
-        statusBillsContainer.innerHTML = cards(filteredBills(bills, getStatus(this.index)));
-      }
-      this.counter++
+      arrowIcon.style.transform = 'rotate(0deg)';
+      statusBillsContainer.innerHTML = cards(filteredBills(bills, getStatus(this.index)));
+      this.counter++;
     } else {
-      if (arrowIcon) {
-        arrowIcon.style.transform = 'rotate(90deg)';
-      }
-      if (statusBillsContainer) {
-        statusBillsContainer.innerHTML = "";
-      }
-      this.counter++
+      arrowIcon.style.transform = 'rotate(90deg)';
+      statusBillsContainer.innerHTML = "";
+      this.counter++;
     }
-
+  
     bills.forEach(bill => {
       const openBill = document.getElementById(`open-bill${bill.id}`);
       if (openBill) {
         openBill.addEventListener('click', (e) => this.handleEditTicket(e, bill, bills));
       }
-    })
-
-    return bills
+    });
+  
+    return bills;
   }
+  
 
   getBillsAllUsers = () => {
     if (this.store) {

@@ -2,6 +2,11 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 
+/////////////
+import BillsUI from '../views/BillsUI.js'
+
+///////////
+
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
@@ -90,6 +95,37 @@ export default class {
 
   }
 
+
+  getBills = async () => {
+    if (this.store) {
+      try {
+        const snapshot = await this.store.bills().list();
+        const bills = snapshot.map(doc => {
+          try {
+            return {
+              ...doc,
+              date: formatDate(doc.date),
+              status: formatStatus(doc.status)
+            };
+          } catch (e) {
+            console.log(e, 'for', doc);
+            return {
+              ...doc,
+              date: doc.date,
+              status: formatStatus(doc.status)
+            };
+          }
+        });
+        return bills;
+      } catch (error) {
+        document.body.innerHTML = BillsUI({ data: [], error: error.message });
+        throw error;
+      }
+    }
+  };
+
+  
+  /*
   getBills = () => {
     if (this.store) {
       return this.store
@@ -116,4 +152,7 @@ export default class {
         })
     }
   }
+
+  */
+
 }

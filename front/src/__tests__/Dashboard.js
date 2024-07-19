@@ -148,6 +148,9 @@ describe('Given I am connected as an Admin', () => {
       const bigBilledIcon = screen.queryByTestId("big-billed-icon")
       expect(bigBilledIcon).toBeTruthy()
     })
+
+
+    
   })
 
 

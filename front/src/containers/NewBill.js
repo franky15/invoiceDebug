@@ -2,7 +2,7 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import Logout from "./Logout.js"
 
 export default class NewBill {
-  
+
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
@@ -16,6 +16,49 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+
+
+  handleChangeFile = e => {
+    e.preventDefault();
+    const file = this.document.querySelector(`input[data-testid="file"]`).files[0];
+  
+    if (!file.name.endsWith(".jpeg") && !file.name.endsWith(".png") && !file.name.endsWith(".jpg")) {
+      const submitButton = this.document.querySelector("#btn-send-bill");
+      submitButton.disabled = true;
+    } else {
+      const submitButton = this.document.querySelector("#btn-send-bill");
+      submitButton.disabled = false;
+  
+      const filePath = e.target.value.split(/\\/g);
+      const fileName = filePath[filePath.length - 1];
+      const formData = new FormData();
+      const email = JSON.parse(localStorage.getItem("user")).email;
+      formData.append('file', file);
+      formData.append('email', email);
+  
+      this.store
+        .bills()
+        .create({
+          data: formData,
+          headers: {
+            noContentType: true
+          }
+        })
+        .then(({ fileUrl, key }) => {
+          this.billId = key;
+          this.fileUrl = fileUrl;
+          this.fileName = fileName;
+        })
+        .catch(error => {
+          console.error('Error during file upload:', error);
+          throw error;  // Re-throw the error to ensure it's caught in the test
+        });
+    }
+  }
+  
+
+  
+  /*
   handleChangeFile = e => {
 
     e.preventDefault()
@@ -66,7 +109,7 @@ export default class NewBill {
     ///////////////////////////
 
     
-  }
+  }*/
 
 
   
